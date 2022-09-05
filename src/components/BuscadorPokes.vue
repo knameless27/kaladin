@@ -12,12 +12,43 @@
         placeholder="¡Busca aqui tu pokemon!"
         type="search"
         class="input"
+        v-model="message"
+        v-on:keyup.enter="$store.commit('misaje', message), (message = '')"
       />
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import { useStore } from "vuex";
+import { computed } from "vue";
+
+export default {
+  name: "BuscadorPokes",
+  data() {
+    return {
+      message: "",
+      submit: "",
+    };
+  },
+  methods: {
+    submitxd() {
+      return console.log(this.message);
+    },
+  },
+  setup() {
+    const store = useStore();
+    const count = computed(() => store.state.count);
+    const increment = () => {
+      store.commit("increment");
+    };
+    const decrement = () => {
+      store.commit("decrement");
+    };
+    return { count, increment, decrement };
+  },
+};
+</script>
 
 <style lang="scss">
 /* From uiverse.io by @alexruix */

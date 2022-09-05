@@ -5,6 +5,7 @@ const store = createStore({
   state() {
     return {
       count: 0,
+      msg: "xd",
     };
   },
   mutations: {
@@ -13,6 +14,9 @@ const store = createStore({
     },
     decrement(state) {
       state.count--;
+    },
+    misaje(state, mensa) {
+      console.log(mensa);
     },
   },
   getters: {
