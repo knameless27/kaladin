@@ -13,39 +13,44 @@
         type="search"
         class="input"
         v-model="message"
-        v-on:keyup.enter="$store.commit('misaje', message), (message = '')"
+        @keyup.enter="enviarDatos()"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { computed } from "vue";
+import axios from "axios";
 
 export default {
   name: "BuscadorPokes",
   data() {
     return {
       message: "",
-      submit: "",
     };
   },
   methods: {
-    submitxd() {
-      return console.log(this.message);
+    async enviarDatos() {
+      await axios
+        .get("https://pokeapi.co/api/v2/pokemon/" + this.message)
+        .catch((e) => {
+          console.log(e);
+          window.alert("¡el pokemon " + this.message + " no fue encontrado!");
+          this.message = "";
+        })
+        .then(({ data }) => {
+          const datos = {
+            id: data.id,
+            nombre: data.name,
+            stats: data.stats,
+            sprites: data.sprites,
+            types: data.types,
+          };
+          this.$store.commit("misaje", datos);
+          this.$router.push("/pokemonProfile");
+          this.message = "";
+        });
     },
-  },
-  setup() {
-    const store = useStore();
-    const count = computed(() => store.state.count);
-    const increment = () => {
-      store.commit("increment");
-    };
-    const decrement = () => {
-      store.commit("decrement");
-    };
-    return { count, increment, decrement };
   },
 };
 </script>

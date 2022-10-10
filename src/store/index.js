@@ -4,25 +4,26 @@ import { createStore, createLogger } from "vuex";
 const store = createStore({
   state() {
     return {
-      count: 0,
-      msg: "xd",
+      id: 0,
+      nombre: "",
+      sprites: [],
+      stats: [],
+      types: [],
     };
   },
   mutations: {
-    increment(state) {
-      state.count++;
-    },
-    decrement(state) {
-      state.count--;
-    },
     misaje(state, mensa) {
-      console.log(mensa);
+      state.id = mensa.id;
+      state.nombre = mensa.nombre;
+      state.sprites = mensa.sprites;
+      state.stats = mensa.stats;
+      state.types = mensa.types;
     },
   },
   getters: {
-    mensaje(state) {
-      return state.msg;
-    },
+    // mensaje(state) {
+    //   return state.msg;
+    // },
   },
   pluggins: [createLogger()],
 });

@@ -23,9 +23,6 @@
           <li class="nav-item">
             <router-link to="/listPokemonView">Lista de pokemon</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/pokemonProfile">Pokemon Profile</router-link>
-          </li>
         </ul>
       </div>
     </div>

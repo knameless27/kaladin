@@ -1,25 +1,30 @@
 <template>
   <div class="pokemonProfile">
     <section class="layout">
-      <div class="header">
-        <br />
-        <h1>Nombre pokimon</h1>
-        <br />
-        <h2>tipo de pokimon</h2>
-      </div>
-      <div class="leftSide">
-        <text>
-          descripcion del pokimon: Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Qui ratione deserunt nemo maiores, debitis doloribus
-          itaque totam nihil obcaecati perferendis temporibus laborum neque,
-          possimus tenetur nisi quam esse ad laudantium!</text
+      <br />
+      <div class="card">
+        <div class="foto">
+          <img :src="pokemon.sprites.front_default" alt="" />
+        </div>
+        <div class="nombre">
+          <h1 class="card__title">{{ pokemon.nombre }}</h1>
+        </div>
+        <div class="card__date" id="tipos">
+          <h2 v-for="(data, index) in pokemon.types" :key="index">
+            {{ data.type.name }}
+          </h2>
+        </div>
+        <p
+          class="card__content"
+          id="stats"
+          v-for="(data, index) in pokemon.stats"
+          :key="index"
         >
+          {{ data.stat.name }}: {{ data.base_stat }}
+        </p>
       </div>
-      <div class="body"></div>
-      <div class="rightSide"><img src="@/assets/logo.png" alt="" /></div>
       <div class="footer"></div>
     </section>
-    <!-- imagen del pokimon -->
   </div>
   <perso-pie />
 </template>
@@ -32,36 +37,42 @@ export default {
   components: {
     PersoPie,
   },
+  data() {
+    return {
+      pokemon: [],
+    };
+  },
+  created() {
+    this.pokemon = this.$store.state;
+  },
 };
 </script>
 
 <style lang="scss">
 .layout {
-  width: auto;
-  height: auto;
-
-  display: grid;
-  grid:
-    "header header header" auto
-    "leftSide body rightSide" 1fr
-    "footer footer footer" 1fr
-    / auto 1fr 25%;
-  gap: 8px;
+  padding-left: 43%;
+  padding-top: 5%;
+  display: flex;
 }
 
-.header {
-  grid-area: header;
+.card {
+  --border-radius: 0.75rem;
+  --primary-color: #7257fa;
+  --secondary-color: #3c3852;
+  width: 25%;
+  font-family: "Arial";
+  border-radius: var(--border-radius);
+  background: #f1f1f3;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 3%);
+  position: relative;
+  display: flex;
 }
-.leftSide {
-  grid-area: leftSide;
+
+.card .card__title {
+  font-weight: bold;
 }
-.body {
-  grid-area: body;
-}
-.rightSide {
-  grid-area: rightSide;
-}
-.footer {
-  grid-area: footer;
+
+.card .card__date {
+  color: #6e6b80;
 }
 </style>
