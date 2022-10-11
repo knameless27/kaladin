@@ -7,24 +7,33 @@
           <img :src="pokemon.sprites.front_default" alt="" />
         </div>
         <div class="nombre">
-          <h1 class="card__title">{{ pokemon.nombre }}</h1>
+          <h1 class="card__title">
+            {{ pokemon.nombre }}
+          </h1>
         </div>
         <div class="card__date" id="tipos">
           <h2 v-for="(data, index) in pokemon.types" :key="index">
             {{ data.type.name }}
           </h2>
         </div>
-        <p
+        <div
           class="card__content"
           id="stats"
           v-for="(data, index) in pokemon.stats"
           :key="index"
         >
           {{ data.stat.name }}: {{ data.base_stat }}
-        </p>
+        </div>
       </div>
       <div class="footer"></div>
     </section>
+    <!-- <b-progress
+      :value="data.base_stat"
+      :max="255"
+      show-progress
+      animated
+      variant="success"
+    ></b-progress> -->
   </div>
   <perso-pie />
 </template>
@@ -40,6 +49,7 @@ export default {
   data() {
     return {
       pokemon: [],
+      stats: 0,
     };
   },
   created() {
@@ -48,7 +58,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .layout {
   padding-left: 43%;
   padding-top: 5%;

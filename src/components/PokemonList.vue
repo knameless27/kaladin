@@ -5,7 +5,10 @@
       <section class="layout">
         <div v-for="(data, index) in pokemons" :key="index">
           <div id="p">
-            <a href="" style="text-decoration: none">
+            <a
+              @click="carta(data.id)"
+              style="text-decoration: none; cursor: pointer"
+            >
               <div class="card" id="h">
                 <div class="img">
                   <img :src="data.img" alt="" />
@@ -60,6 +63,7 @@ export default {
               img: response.data.sprites.front_default,
               type1: response.data.types[0].type.name,
               type2: response.data.types[1].type.name,
+              id: response.data.id,
             };
             this.pokemons.push(pokimon);
           } else {
@@ -68,6 +72,7 @@ export default {
               img: response.data.sprites.front_default,
               type1: response.data.types[0].type.name,
               type2: "",
+              id: response.data.id,
             };
             this.pokemons.push(pokimon);
           }
@@ -76,6 +81,21 @@ export default {
           console.log(e);
         });
     }
+  },
+  methods: {
+    carta(id) {
+      axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`).then(({ data }) => {
+        const datos = {
+          id: data.id,
+          nombre: data.name,
+          stats: data.stats,
+          sprites: data.sprites,
+          types: data.types,
+        };
+        this.$store.commit("misaje", datos);
+      });
+      this.$router.push("/pokemonProfile");
+    },
   },
 };
 </script>
